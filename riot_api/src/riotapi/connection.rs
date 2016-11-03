@@ -70,8 +70,7 @@ impl APIConnection {
 
 
 pub trait APIRequest {
-    fn make_request<T, F>(&self, callback: F) -> Result
-        where F: Fn(T, &'static str) -> Result<T, &'static str>;
+    fn make_request() -> Result<Some(T), Error>;
 }
 
 impl Display for Region {

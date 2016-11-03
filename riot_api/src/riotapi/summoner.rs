@@ -11,9 +11,5 @@ pub struct SummonerMetaInfo {
 }
 
 impl APIRequest for SummonerMetaInfo {
-    fn make_request<SummonerMetaInfo, F>(&self, callback: F) -> Result
-        where F: Fn(SummonerMetaInfo) -> Result<SummonerMetaInfo, &'static str>
-    {
-        callback();
-    }
+    fn make_request() -> Result<Some(T), Error> {}
 }
