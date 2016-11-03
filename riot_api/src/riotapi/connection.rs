@@ -1,4 +1,4 @@
-use std::fmt::{Display, Result, Formatter};
+use std;
 #[derive(Debug)]
 pub enum Region {
     BR,
@@ -67,14 +67,14 @@ impl APIConnection {
 ///     println!("{:?}",Region::NA.to_string());
 ///
 /// ```
+pub type APIRequestResult<T> = std::result::Result<T, ()>;
 
-
-pub trait APIRequest {
-    fn make_request() -> Result<Some(T), Error>;
+pub trait APIRequest<T> {
+    fn make_request() -> APIRequestResult<T>;
 }
 
-impl Display for Region {
-    fn fmt(&self, f: &mut Formatter) -> Result {
+impl std::fmt::Display for Region {
+    fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
         write!(f, "{:?}", self)
     }
 }
