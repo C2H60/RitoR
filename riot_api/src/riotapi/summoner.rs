@@ -9,18 +9,21 @@ pub struct SummonerMetaInfo {
 }
 
 impl APIRequest<SummonerMetaInfo> for SummonerMetaInfo {
-    fn make_request() -> APIRequestResult<SummonerMetaInfo> {
-        let x = SummonerMetaInfo {
-            id: 1,
-            name: "SumCoolAid".to_string(),
-            profile_icon_id: 1,
-            revision_date: 1,
-            summoner_level: 30,
-        };
+    fn make_request(&self) -> APIRequestResult<SummonerMetaInfo> {
         if true {
-            Ok(x)
+            Ok(SummonerMetaInfo {
+                id: 1,
+                name: "SumCoolAid".to_string(),
+                profile_icon_id: 1,
+                revision_date: 1,
+                summoner_level: 30,
+            })
         } else {
             Err(())
         }
     }
+}
+
+impl SummonerMetaInfo {
+    pub fn new() -> SummonerMetaInfo {}
 }

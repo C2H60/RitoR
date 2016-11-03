@@ -57,6 +57,8 @@ impl APIConnection {
     pub fn get_api_key(&self) -> String {
         self.api_key.to_owned()
     }
+
+    pub fn generic_api_request<T>(&self, request: &APIRequest<T>) {}
 }
 
 /// Implements fmt::Display for Region
@@ -70,7 +72,7 @@ impl APIConnection {
 pub type APIRequestResult<T> = std::result::Result<T, ()>;
 
 pub trait APIRequest<T> {
-    fn make_request() -> APIRequestResult<T>;
+    fn make_request(&self) -> APIRequestResult<T>;
 }
 
 impl std::fmt::Display for Region {
