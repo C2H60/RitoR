@@ -69,8 +69,9 @@ impl APIConnection {
 /// ```
 
 
-trait APIRequest<'T> {
-    fn make_request<F>(&self, callback: F) -> Result where F: Fn() -> bool;
+pub trait APIRequest {
+    fn make_request<T, F>(&self, callback: F) -> Result
+        where F: Fn(T, &'static str) -> Result<T, &'static str>;
 }
 
 impl Display for Region {
