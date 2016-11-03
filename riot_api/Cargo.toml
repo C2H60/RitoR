@@ -1,0 +1,6 @@
+[package]
+name = "riot_api"
+version = "0.1.0"
+authors = ["TheOpenDevProject <tkgs28@gmail.com>"]
+
+[dependencies]
