@@ -1,4 +1,7 @@
 use std;
+use std::io::Read;
+use hyper::Client;
+
 #[derive(Debug)]
 pub enum Region {
     BR,
@@ -35,6 +38,13 @@ impl APIConnection {
             api_key: con_api_key,
         }
     }
+    pub fn get(url: &str) -> ::hyper::Result<String> {
+        let client = Client::new();
+        let mut response = try!(client.get(url).send());
+        let mut buffer = String::new();
+        try!(response.read_to_string(&mut buffer));
+        Ok(buffer)
+    }
 
     /// Gets the currently selected region as a String
     ///
@@ -57,8 +67,6 @@ impl APIConnection {
     pub fn get_api_key(&self) -> String {
         self.api_key.to_owned()
     }
-
-    pub fn generic_api_request<T>(&self, request: &APIRequest<T>) {}
 }
 
 /// Implements fmt::Display for Region
@@ -69,11 +77,6 @@ impl APIConnection {
 ///     println!("{:?}",Region::NA.to_string());
 ///
 /// ```
-pub type APIRequestResult<T> = std::result::Result<T, ()>;
-
-pub trait APIRequest<T> {
-    fn make_request(&self) -> APIRequestResult<T>;
-}
 
 impl std::fmt::Display for Region {
     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {

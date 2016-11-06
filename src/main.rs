@@ -1,7 +1,12 @@
 extern crate riot_api;
-use riot_api::riotapi::connection::{APIConnection, Region, APIRequest};
-use riot_api::riotapi::summoner::SummonerMetaInfo;
+use riot_api::riotapi::connection::{APIConnection, Region};
+use riot_api::riotapi::apisettings::APISettings;
 fn main() {
-    let conn = APIConnection::new(Region::OCE,"7fd26ccd-8fa7-44f8-90eb-992704a96da2".to_string());
-    let result conn.generic_api_request(SummonerMetaInfo::new());
+    println!("{:?}",
+             APIConnection::get("https://oce.api.pvp.net/api/lol/oce/v1.\
+                                 4/summoner/by-name/SumCoolAid?api_key=16e553c8-70cf-44cf-95b4-81c6c2269bee"));
+    APISettings::create_settings_file("settings.json");
+    // let settings = APISettings::load_from_file("settings.json");
+    // println!("{:?}", settings);
+
 }
