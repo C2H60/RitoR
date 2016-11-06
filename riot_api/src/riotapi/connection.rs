@@ -1,8 +1,8 @@
 use std;
 use std::io::Read;
 use hyper::Client;
-
-#[derive(Debug)]
+use apisettings::ApiSettings;
+#[derive(Serialize, Deserialize, Debug)]
 pub enum Region {
     BR,
     EUNE,
@@ -16,11 +16,13 @@ pub enum Region {
     RU,
     TR,
 }
-
+#[derive(Serialize, Deserialize, Debug)]
 pub struct APIConnection {
-    region: Region,
-    api_key: String,
+    pub region: Region,
+    pub api_key: String,
 }
+
+
 
 impl APIConnection {
     /// Constructs a new APIConnection
@@ -32,7 +34,7 @@ impl APIConnection {
     ///
     /// let conn = APIConnection::new(Region::OCE,"YOUR_API_KEY".to_string());
     /// ```
-    pub fn new(con_region: Region, con_api_key: String) -> APIConnection {
+    pub fn new(api_settings: APISettings) -> APIConnection {
         APIConnection {
             region: con_region,
             api_key: con_api_key,

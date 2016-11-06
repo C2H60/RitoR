@@ -20,6 +20,7 @@ struct Endpoints {
 }
 #[derive(Serialize, Deserialize, Debug)]
 pub struct APISettings {
+    realm_info: ::riotapi::connection::APIConnection,
     endpoints: Endpoints,
 }
 
@@ -35,6 +36,10 @@ impl APISettings {
 
     pub fn create_settings_file(file: &str) {
         let settings = APISettings {
+            realm_info: ::riotapi::connection::APIConnection {
+                api_key: "".to_string(),
+                region: ::riotapi::connection::Region::OCE,
+            },
             endpoints: Endpoints {
                 has_endpoints: true,
                 available_categories: vec![EndpointCategory {
@@ -56,7 +61,7 @@ impl APISettings {
             Ok(())
         };
 
-        let data = ::serde_json::to_string(&settings).unwrap();
+        let data = ::serde_json::to_string_pretty(&settings).unwrap();
         write_file(file, data);
     }
 }

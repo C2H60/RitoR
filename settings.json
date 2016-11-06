@@ -1,1 +1,22 @@
-{"endpoints":{"has_endpoints":true,"available_categories":[{"name":"summoner","major_version":1,"minor_version":3,"endpoints":[{"lookup_name":"sample_endpoint","url":"/blaa/foobar"}]}]}}
+{
+  "realm_info": {
+    "region": "OCE",
+    "api_key": "16e553c8-70cf-44cf-95b4-81c6c2269bee"
+  },
+  "endpoints": {
+    "has_endpoints": true,
+    "available_categories": [
+      {
+        "name": "summoner",
+        "major_version": 1,
+        "minor_version": 4,
+        "endpoints": [
+          {
+            "lookup_name": "getSummonerByName",
+            "url": "/api/lol/{}/summoner/by-name/{}?"
+          }
+        ]
+      }
+    ]
+  }
+}
