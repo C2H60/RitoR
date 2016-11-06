@@ -16,6 +16,12 @@ pub enum Region {
     RU,
     TR,
 }
+
+pub enum ConnectionPrefix {
+    HTTP,
+    HTTPS,
+}
+
 #[derive(Serialize, Deserialize, Debug)]
 pub struct APIConnection {
     pub region: Region,
@@ -40,7 +46,7 @@ impl APIConnectionManager {
         APIConnectionManager { settings: api_settings }
     }
 
-    pub fn get(url: &str) -> ::hyper::Result<String> {
+    pub fn get(&self, url: &str) -> ::hyper::Result<String> {
         let client = Client::new();
         let mut response = try!(client.get(url).send());
         let mut buffer = String::new();

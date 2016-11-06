@@ -71,4 +71,8 @@ impl APISettings {
         let data = ::serde_json::to_string_pretty(&settings).unwrap();
         write_file(file, data);
     }
+
+    pub fn find_by_key<T>(vector: Vec<T>, key: &str) -> usize {
+        vector.iter().position(|&elem| elem == key).unwrap();
+    }
 }
