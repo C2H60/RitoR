@@ -25,13 +25,20 @@ pub struct APISettings {
 }
 
 impl APISettings {
-    // pub fn load_from_file(file: &str) -> APISettings {
-    // let mut s_file = try!(File::open(file));
-    // let mut buffer = String::new();
-    // try!(s_file.read_to_string(&mut buffer));
-    // let settings: APISettings = ::serde_json::from_str(buffer.as_ref());
-    // APISettings {}
-    // }
+    pub fn load_from_file(file: &str) -> APISettings {
+        let f_path = Path::new(file);
+        let mut file = match File::open(&f_path) {
+            Err(why) => panic!("Failed to open settings.json file"),
+            Ok(file) => file,
+        };
+        let mut buffer = String::new();
+        match file.read_to_string(&mut buffer) {
+            Err(why) => panic!("Cant read file"),
+            Ok(_) => println!("Settings Loaded OK"),
+        };
+        let settings: APISettings = ::serde_json::from_str(buffer.as_ref()).unwrap();
+        settings
+    }
 
 
     pub fn create_settings_file(file: &str) {

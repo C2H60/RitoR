@@ -1,7 +1,7 @@
 use std;
 use std::io::Read;
 use hyper::Client;
-use apisettings::ApiSettings;
+use riotapi::apisettings::APISettings;
 #[derive(Serialize, Deserialize, Debug)]
 pub enum Region {
     BR,
@@ -22,52 +22,30 @@ pub struct APIConnection {
     pub api_key: String,
 }
 
+pub struct APIConnectionManager {
+    settings: APISettings,
+}
 
-
-impl APIConnection {
+impl APIConnectionManager {
     /// Constructs a new APIConnection
     ///
     /// #Examples
     ///
     /// ```
-    /// use riot_api::riotapi::connection::{APIConnection, Region};
+    /// use riot_api::riotapi::connection::{APIConnectionManager, Region};
     ///
-    /// let conn = APIConnection::new(Region::OCE,"YOUR_API_KEY".to_string());
+    /// let conn = APIConnectionManager::new(Region::OCE,"YOUR_API_KEY".to_string());
     /// ```
-    pub fn new(api_settings: APISettings) -> APIConnection {
-        APIConnection {
-            region: con_region,
-            api_key: con_api_key,
-        }
+    pub fn new(api_settings: APISettings) -> APIConnectionManager {
+        APIConnectionManager { settings: api_settings }
     }
+
     pub fn get(url: &str) -> ::hyper::Result<String> {
         let client = Client::new();
         let mut response = try!(client.get(url).send());
         let mut buffer = String::new();
         try!(response.read_to_string(&mut buffer));
         Ok(buffer)
-    }
-
-    /// Gets the currently selected region as a String
-    ///
-    /// #Examples
-    ///
-    /// ```
-    /// let region: String = conn.get_region();
-    /// ```
-    pub fn get_region(&self) -> String {
-        self.region.to_string()
-    }
-
-    /// Gets the currently selected region as a String
-    ///
-    /// #Examples
-    ///
-    /// ```
-    /// let api_key: String = conn.get_api_key();
-    /// ```
-    pub fn get_api_key(&self) -> String {
-        self.api_key.to_owned()
     }
 }
 
